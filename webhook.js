@@ -23,7 +23,6 @@ app.post("/", (req, res) => {
   });
   req.on("end", () => {
     let parsedBody = JSON.parse(body);
-    console.log(parsedBody);
     if (parsedBody.type === "message.new") {
       console.log(parsedBody.message.text);
     }
