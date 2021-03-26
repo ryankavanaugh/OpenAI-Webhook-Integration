@@ -9,26 +9,26 @@ const port = process.env.PORT || 5000;
 //chat client
 
 //middleware
+app.use(cors());
 
 app.get('/', (req, res) => {
-  return 'hellooo worlds'
+  res.status(200).send("OK");
 })
 
-app.use(cors());
-app.post("/webhook", (req, res) => {
-  let body = "";
-  req.on("data", (chunk) => {
-    body += chunk;
-  });
-  req.on("end", () => {
-    let parsedBody = JSON.parse(body);
-    console.log(parsedBody);
-    if (parsedBody.type === "message.new") {
-      console.log(parsedBody);
-    }
-    res.status(200).send("OK");
-  });
-});
+// app.post("/webhook", (req, res) => {
+//   let body = "";
+//   req.on("data", (chunk) => {
+//     body += chunk;
+//   });
+//   req.on("end", () => {
+//     let parsedBody = JSON.parse(body);
+//     console.log(parsedBody);
+//     if (parsedBody.type === "message.new") {
+//       console.log(parsedBody);
+//     }
+//     res.status(200).send("OK");
+//   });
+// });
 
 app.listen(port, () => {
   console.log(`server running on port ${port}`);
