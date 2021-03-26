@@ -15,20 +15,20 @@ app.get('/', (req, res) => {
   res.status(200).send("OK");
 })
 
-// app.post("/webhook", (req, res) => {
-//   let body = "";
-//   req.on("data", (chunk) => {
-//     body += chunk;
-//   });
-//   req.on("end", () => {
-//     let parsedBody = JSON.parse(body);
-//     console.log(parsedBody);
-//     if (parsedBody.type === "message.new") {
-//       console.log(parsedBody);
-//     }
-//     res.status(200).send("OK");
-//   });
-// });
+app.post("/webhook", (req, res) => {
+  let body = "";
+  req.on("data", (chunk) => {
+    body += chunk;
+  });
+  req.on("end", () => {
+    let parsedBody = JSON.parse(body);
+    console.log(parsedBody);
+    if (parsedBody.type === "message.new") {
+      console.log(parsedBody);
+    }
+    res.status(200).send("OK");
+  });
+});
 
 app.listen(port, () => {
   console.log(`server running on port ${port}`);
