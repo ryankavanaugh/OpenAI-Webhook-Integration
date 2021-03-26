@@ -15,6 +15,11 @@ app.get('/', (req, res) => {
   res.status(200).send("OK");
 })
 
+app.post('/', (req, res) => {
+  console.log('simple')
+  res.status(200).send("OK");
+})
+
 app.post("/webhook", (req, res) => {
   console.log('hit the webhook')
   let body = "";
