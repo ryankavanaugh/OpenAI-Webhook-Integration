@@ -25,7 +25,7 @@ app.post("/", (req, res) => {
     let parsedBody = JSON.parse(body);
     console.log(parsedBody);
     if (parsedBody.type === "message.new") {
-      console.log(parsedBody.text);
+      console.log(parsedBody.message.text);
     }
     res.status(200).send("OK");
   });
