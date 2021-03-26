@@ -11,12 +11,12 @@ const port = process.env.PORT || 5000;
 //middleware
 app.use(cors());
 
-app.get('/', (req, res) => {
+app.get("/", (req, res) => {
   res.status(200).send("OK");
-})
+});
 
 app.post("/", (req, res) => {
-  console.log('hit the webhook')
+  console.log("hit the webhook");
   let body = "";
   req.on("data", (chunk) => {
     body += chunk;
@@ -25,7 +25,7 @@ app.post("/", (req, res) => {
     let parsedBody = JSON.parse(body);
     console.log(parsedBody);
     if (parsedBody.type === "message.new") {
-      console.log(parsedBody);
+      console.log(parsedBody.text);
     }
     res.status(200).send("OK");
   });
