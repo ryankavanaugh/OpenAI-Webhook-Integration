@@ -16,6 +16,7 @@ app.get('/', (req, res) => {
 })
 
 app.post("/webhook", (req, res) => {
+  console.log('hit the webhook')
   let body = "";
   req.on("data", (chunk) => {
     body += chunk;
