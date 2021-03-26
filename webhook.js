@@ -10,6 +10,10 @@ const port = process.env.PORT || 5000;
 
 //middleware
 
+app.get('/', (req, res) => {
+  return 'hellooo worlds'
+})
+
 app.use(cors());
 app.post("/webhook", (req, res) => {
   let body = "";
@@ -25,6 +29,7 @@ app.post("/webhook", (req, res) => {
     res.status(200).send("OK");
   });
 });
+
 app.listen(port, () => {
   console.log(`server running on port ${port}`);
 });
