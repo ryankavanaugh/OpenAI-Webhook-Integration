@@ -52,11 +52,11 @@ app.post("/", (req, res) => {
         },
         body: {
         ticket: {
-          comment: {
-            body: 'lines',
+          "comment": {
+            "body": 'lines',
           },
-          priority: "urgent",
-          subject: "New Dispute",
+          "priority": "urgent",
+          "subject": "New Dispute",
         },
         },
       }).then((r) => console.log(r));
