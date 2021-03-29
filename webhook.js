@@ -55,7 +55,7 @@ app.post("/", (req, res) => {
             comment: {
               body: lines,
             },
-            priority: "normal",
+            priority: "urgent",
             subject: "New Dispute",
           },
         },
