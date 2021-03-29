@@ -44,7 +44,6 @@ app.post("/", (req, res) => {
       const { messages } = state;
       let lines = "";
       messages.forEach((mes) => (lines += `${mes.text} - ${mes.user.id} \n`));
-      console.log(lines);
       const raw = await fetch(`https://getstream.zendesk.com/api/v2/tickets`, {
         method: "POST",
         headers: {
@@ -60,7 +59,7 @@ app.post("/", (req, res) => {
             subject: "New Dispute",
           },
         },
-      });
+      }).then((r) => console.log(r));
     }
     res.status(200).send("OK");
   });
