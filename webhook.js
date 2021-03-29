@@ -42,7 +42,7 @@ app.post("/", (req, res) => {
       const channel = chatClient.channel(channel_type, channel_id);
       const state = await channel.query({ messages: { limit: 40 } });
       const { messages } = state;
-      const lines = "";
+      let lines = "";
       messages.forEach((mes) => (lines += `${mes.text} - ${mes.user.id} \n`));
       console.log(lines);
       const raw = await fetch(`https://getstream.zendesk.com/api/v2/tickets`, {
