@@ -26,7 +26,7 @@ app.post("/", (req, res) => {
   req.on("data", (chunk) => {
     body += chunk;
   });
-  req.on("end", () => {
+  req.on("end", async () => {
     let parsedBody = JSON.parse(body);
     if (parsedBody.type === "channel.updated") {
       const { channel_type, channel_id } = parsedBody;
