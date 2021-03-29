@@ -23,8 +23,10 @@ app.post("/", (req, res) => {
   });
   req.on("end", () => {
     let parsedBody = JSON.parse(body);
-    if (parsedBody.type === "message.new") {
-      console.log(parsedBody.message.text);
+    if (parsedBody.type === "channel.updated") {
+      
+      console.log(parsedBody)
+
     }
     res.status(200).send("OK");
   });
