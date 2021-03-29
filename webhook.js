@@ -53,7 +53,7 @@ app.post("/", (req, res) => {
         body: {
         ticket: {
           "comment": {
-            "body": 'lines',
+            "body": "lines",
           },
           "priority": "urgent",
           "subject": "New Dispute",
