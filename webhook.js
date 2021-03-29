@@ -51,13 +51,13 @@ app.post("/", (req, res) => {
           Authorization: `Basic ${encoded}`,
         },
         body: {
-          ticket: {
-            comment: {
-              body: lines,
-            },
-            priority: "urgent",
-            subject: "New Dispute",
+        ticket: {
+          comment: {
+            body: 'lines',
           },
+          priority: "urgent",
+          subject: "New Dispute",
+        },
         },
       }).then((r) => console.log(r));
     }
