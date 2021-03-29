@@ -7,6 +7,11 @@ const app = express();
 const port = process.env.PORT || 5000;
 
 //chat client
+const StreamChat = require("stream-chat").StreamChat;
+const chatClient = StreamChat.getInstance(
+  "qtc55pny5xww",
+  "9hrptm6edfg8ygm6hzswpj8rnze94v8ujfmg7drfk8ndaztnqkh875upke6ndypc"
+);
 
 //middleware
 app.use(cors());
@@ -24,9 +29,11 @@ app.post("/", (req, res) => {
   req.on("end", () => {
     let parsedBody = JSON.parse(body);
     if (parsedBody.type === "channel.updated") {
-      
-      console.log(parsedBody)
-
+      const { channel_type, channel_id };
+      const channel = chatClient.channel(channel_type, channel_id);
+      const state = await channel.query({messages: {limit: 40}})
+      const {messages} = state
+      console.log(messages)
     }
     res.status(200).send("OK");
   });
