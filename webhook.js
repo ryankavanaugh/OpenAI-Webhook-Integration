@@ -6,6 +6,9 @@ const axios = require("axios");
 const app = express();
 const port = process.env.PORT || 5000;
 
+const base64 = require("js-base64").Base64;
+const fetch = require("node-fetch");
+
 const encoded = base64.encode(
   "stephen@getstream.io/token:rQ2CCFPefNFOGwaHKbmH4ngCCl9kbSAjPbWeBDUN"
 );
