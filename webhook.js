@@ -50,13 +50,14 @@ app.post("/", (req, res) => {
           "Content-Type": "application/json",
           Authorization: `Basic ${encoded}`,
         },
-
-        ticket: {
-          comment: {
-            body: lines,
+        body: {
+          ticket: {
+            comment: {
+              body: lines,
+            },
+            priority: "urgent",
+            subject: "New Dispute",
           },
-          priority: "urgent",
-          subject: "New Dispute",
         },
       }).then((r) => console.log(r));
     }
