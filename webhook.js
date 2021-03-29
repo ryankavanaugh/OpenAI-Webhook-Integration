@@ -29,7 +29,7 @@ app.post("/", (req, res) => {
   req.on("end", () => {
     let parsedBody = JSON.parse(body);
     if (parsedBody.type === "channel.updated") {
-      const { channel_type, channel_id };
+      const { channel_type, channel_id } = parsedBody;
       const channel = chatClient.channel(channel_type, channel_id);
       const state = await channel.query({messages: {limit: 40}})
       const {messages} = state
