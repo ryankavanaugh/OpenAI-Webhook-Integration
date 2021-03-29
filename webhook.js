@@ -9,7 +9,9 @@ const port = process.env.PORT || 5000;
 const base64 = require("js-base64").Base64;
 const fetch = require("node-fetch");
 
-const encoded = base64.encode("stephen@getstream.io/cJ7^*k6qlz1Tu8Dh");
+const encoded = base64.encode(
+  "stephen@getstream.io/token:rQ2CCFPefNFOGwaHKbmH4ngCCl9kbSAjPbWeBDUN"
+);
 
 const startingURL = "https://getstream.zendesk.com/api/v2/tickets/";
 
