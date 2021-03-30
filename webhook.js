@@ -44,25 +44,22 @@ app.post("/", (req, res) => {
       const { messages } = state;
       let lines = "";
       messages.forEach((mes) => (lines += `${mes.text} - ${mes.user.id} \n`));
+      data: {
+       const data = { ticket : {
+          comment: {
+            body: "lines",
+          },
+          priority: "urgent",
+          subject: "New Dispute",
+        },
+      },
       try {
         const raw = axios
-          .post({
-            method: "post",
-            url: `https://getstream.zendesk.com/api/v2/tickets`,
+          .post(`https://getstream.zendesk.com/api/v2/tickets`, data, {
             headers: {
               "Content-Type": "application/json",
               Authorization: `Basic ${encoded}`,
             },
-            data: {
-              ticket: {
-                comment: {
-                  body: "lines",
-                },
-                priority: "urgent",
-                subject: "New Dispute",
-              },
-            },
-            json: true,
           })
           .then((r) => console.log(r));
       } catch (error) {
