@@ -45,15 +45,15 @@ app.post("/", (req, res) => {
       let lines = "";
       messages.forEach((mes) => (lines += `${mes.text} - ${mes.user.id} \n`));
       try {
-        const raw = await fetch(
-          `https://getstream.zendesk.com/api/v2/tickets`,
-          {
-            method: "POST",
+        const raw = axios
+          .post({
+            method: "post",
+            url: `https://getstream.zendesk.com/api/v2/tickets`,
             headers: {
               "Content-Type": "application/json",
               Authorization: `Basic ${encoded}`,
             },
-            body: {
+            data: {
               ticket: {
                 comment: {
                   body: "lines",
@@ -62,8 +62,9 @@ app.post("/", (req, res) => {
                 subject: "New Dispute",
               },
             },
-          }
-        ).then((r) => console.log(r.headers));
+            json: true,
+          })
+          .then((r) => console.log(r));
       } catch (error) {
         console.log(error);
       }
