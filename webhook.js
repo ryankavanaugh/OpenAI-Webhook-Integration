@@ -63,7 +63,7 @@ app.post("/", (req, res) => {
               },
             },
           }
-        );
+        ).then((r) => console.log(r));
       } catch (error) {
         console.log(error);
       }
