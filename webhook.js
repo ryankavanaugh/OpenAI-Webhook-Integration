@@ -44,15 +44,15 @@ app.post("/", (req, res) => {
       const { messages } = state;
       let lines = "";
       messages.forEach((mes) => (lines += `${mes.text} - ${mes.user.id} \n`));
-      data: {
-       const data = { ticket : {
+      const data = {
+        ticket: {
           comment: {
             body: "lines",
           },
           priority: "urgent",
           subject: "New Dispute",
         },
-      },
+      };
       try {
         const raw = axios
           .post(`https://getstream.zendesk.com/api/v2/tickets`, data, {
