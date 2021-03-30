@@ -62,6 +62,7 @@ app.post("/", (req, res) => {
         },
       };
       try {
+        // send to Zendesk 
         const raw = axios
           .post(`https://getstream.zendesk.com/api/v2/tickets`, data, {
             headers: {
