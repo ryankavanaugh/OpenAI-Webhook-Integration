@@ -9,13 +9,14 @@ const port = process.env.PORT || 5000;
 const base64 = require("js-base64").Base64;
 const fetch = require("node-fetch");
 
+// Zendesk credentials
 const encoded = base64.encode(
   "stephen@getstream.io/token:rQ2CCFPefNFOGwaHKbmH4ngCCl9kbSAjPbWeBDUN"
 );
 
 const startingURL = "https://getstream.zendesk.com/api/v2/tickets/";
 
-//chat client
+//make chat client
 const StreamChat = require("stream-chat").StreamChat;
 const chatClient = StreamChat.getInstance(
   "qtc55pny5xww",
@@ -25,31 +26,39 @@ const chatClient = StreamChat.getInstance(
 //middleware
 app.use(cors());
 
+// heroku check
 app.get("/", (req, res) => {
   res.status(200).send("OK");
 });
 
+// webhook handler
 app.post("/", (req, res) => {
   console.log("hit the webhook");
   let body = "";
   req.on("data", (chunk) => {
     body += chunk;
   });
+  // got payload from Stream
   req.on("end", async () => {
     let parsedBody = JSON.parse(body);
-    if (parsedBody.type === "channel.updated") {
+    if (
+      parsedBody.type === "channel.updated" &&
+      parsedBody.sendToZendesk === true
+    ) {
+      // fetch channel messages from Stream
       const { channel_type, channel_id } = parsedBody;
       const channel = chatClient.channel(channel_type, channel_id);
       const state = await channel.query({ messages: { limit: 40 } });
       const { messages } = state;
       let lines = "";
       messages.forEach((mes) => (lines += `${mes.text} - ${mes.user.id} \n`));
+      // tickett structure for Zendesk
       const data = {
         ticket: {
           comment: {
             body: lines,
           },
-          priority: "urgent",
+          priority: "normal",
           subject: "New Dispute",
         },
       };
