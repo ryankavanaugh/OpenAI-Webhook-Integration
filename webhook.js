@@ -41,6 +41,7 @@ app.post("/", (req, res) => {
   // got payload from Stream
   req.on("end", async () => {
     let parsedBody = JSON.parse(body);
+    console.log(parsedBody)
     if (
       parsedBody.type === "channel.updated" &&
       parsedBody.sendToZendesk === true
