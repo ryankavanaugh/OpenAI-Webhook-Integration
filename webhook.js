@@ -44,22 +44,29 @@ app.post("/", (req, res) => {
       const { messages } = state;
       let lines = "";
       messages.forEach((mes) => (lines += `${mes.text} - ${mes.user.id} \n`));
-      const raw = await fetch(`https://getstream.zendesk.com/api/v2/tickets`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Basic ${encoded}`,
-        },
-        body: {
-        ticket: {
-          "comment": {
-            "body": "lines",
-          },
-          "priority": "urgent",
-          "subject": "New Dispute",
-        },
-        },
-      }).then((r) => console.log(r));
+      try {
+        const raw = await fetch(
+          `https://getstream.zendesk.com/api/v2/tickets`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Basic ${encoded}`,
+            },
+            body: {
+              ticket: {
+                comment: {
+                  body: "lines",
+                },
+                priority: "urgent",
+                subject: "New Dispute",
+              },
+            },
+          }
+        );
+      } catch (error) {
+        console.log(error);
+      }
     }
     res.status(200).send("OK");
   });
