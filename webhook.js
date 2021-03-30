@@ -47,7 +47,7 @@ app.post("/", (req, res) => {
       const data = {
         ticket: {
           comment: {
-            body: "lines",
+            body: lines,
           },
           priority: "urgent",
           subject: "New Dispute",
