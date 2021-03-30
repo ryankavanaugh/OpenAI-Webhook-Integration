@@ -33,7 +33,6 @@ app.get("/", (req, res) => {
 
 // webhook handler
 app.post("/", (req, res) => {
-  console.log("hit the webhook");
   let body = "";
   req.on("data", (chunk) => {
     body += chunk;
@@ -41,10 +40,9 @@ app.post("/", (req, res) => {
   // got payload from Stream
   req.on("end", async () => {
     let parsedBody = JSON.parse(body);
-    console.log(parsedBody)
     if (
       parsedBody.type === "channel.updated" &&
-      parsedBody.sendToZendesk === true
+      parsedBody.channel.sendToZendesk === true
     ) {
       // fetch channel messages from Stream
       const { channel_type, channel_id } = parsedBody;
