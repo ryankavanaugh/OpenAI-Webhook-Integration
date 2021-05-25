@@ -1,28 +1,12 @@
-require("dotenv").config();
-const express = require("express");
+// require("dotenv").config();
 const cors = require("cors");
 const nodemailer = require('nodemailer');
-const axios = require("axios");
+const port = process.env.PORT || 601;
+const express = require("express");
 const app = express();
-const port = process.env.PORT || 603;
-
-const base64 = require("js-base64").Base64;
-const fetch = require("node-fetch");
-
-// chat client
-const StreamChat = require("stream-chat").StreamChat;
-const chatClient = StreamChat.getInstance(
-  "ch98smercfa4",
-  "sadnv2yp4vgdzbf2pgbh3rnmwgdndp4x9vp3qmvvgfbrekuzy6mfnmghbtubxa9g"
-);
 
 // middleware
 app.use(cors());
-
-// heroku check
-app.get("/", (req, res) => {
-  res.status(200).send("OK");
-});
 
 // webhook handler
 app.post("/", (req, res) => {
@@ -35,29 +19,9 @@ app.post("/", (req, res) => {
   req.on("end", async () => {
     let parsedBody = JSON.parse(body);
     console.log(parsedBody)
-    // console.log('hello')
-    let email = parsedBody.message.text
-    pass = true
-    if (
-      // parsedBody.type === "channel.updated" &&
-      // parsedBody.channel.sendToZendesk === true
-      pass === true
-
-    ) {
-      // fetch channel messages from Stream
-      const { channel_type, channel_id } = parsedBody;
-      
-      // channel_type = 'messaging';
-      // channel_id = 'B';
-      const channel = chatClient.channel(channel_type, channel_id);
-      const sort = [{ last_message_at: -1 }]; 
-      const state = await channel.query({ messages: { limit: 40 } }, sort);
-      
-      const { messages } = state;
-      let lines = "";
-      messages.forEach((mes) => (lines += `${mes.text} - ${mes.user.id} \n`));
-
+    
       try {
+        let email = parsedBody.message.text
         let transporter = nodemailer.createTransport({
           service: 'gmail',
           auth: {
@@ -83,9 +47,9 @@ app.post("/", (req, res) => {
       } catch (error) {
         console.log(error);
       }
-    }
     res.status(200).send("OK");
   });
+
 });
 
 app.listen(port, () => {
