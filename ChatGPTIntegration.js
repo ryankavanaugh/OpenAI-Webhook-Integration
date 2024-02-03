@@ -4,7 +4,7 @@ const express = require("express")
 const app = express();
 const OpenAI = require("openai");
 const openai = new OpenAI();
-// API Key - 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
+
 
 const StreamChat = require('stream-chat').StreamChat;
 
